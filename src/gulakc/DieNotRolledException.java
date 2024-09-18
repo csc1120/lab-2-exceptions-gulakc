@@ -4,13 +4,28 @@
  * DieNotRolledException class
  * Name: Christian G
  * Last Updated:
+ /*
+ /**
+ * Custom exception class for when the die has not been rolled yet.
  */
 package gulakc;
+/**
+ * public class
+ */
+public class DieNotRolledException extends RuntimeException {
 
-public class DieNotRolledException extends RuntimeException  {
-    public String getMessage(){
-        return "Currentvalue is not what was expected of die";
-
+    /**
+     * constructor
+     */
+    public DieNotRolledException() {
+        super("You have not rolled die yet.");
     }
 
+    /**
+     * Constructor
+     * @param message s
+     */
+    public DieNotRolledException(String message) {
+        super(message);
+    }
 }

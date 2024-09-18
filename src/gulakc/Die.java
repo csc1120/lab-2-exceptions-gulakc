@@ -1,5 +1,5 @@
 /**
- * * Course: CSC1020
+ * Course: CSC1020
  * Fall 2024
  * Lab 2 - Exceptions
  * Name: Christian Gulak
@@ -11,74 +11,53 @@ package gulakc;
 import java.util.Random;
 
 /**
- * The Die class
+ * The Die class for a simple dice rolling simulation.
  */
 public class Die {
 
-    /**
-     * max sides
-     */
-    public static final int MAX_SIDES = 100;
-    /**
-     * min sides
-     */
-    public static final int MIN_SIDES = 2;
+    private static final int MIN_SIDES = 2;
+    private static final int MAX_SIDES = 100;
 
-
-    // Attributes
-    private final Random generator = new Random();
-    /**
-     * generates a random
-     */
-    private final int numSides;
+    private int numSides;
     private int currentValue;
+    private Random random;
 
     /**
-     * Constructor for Die class. Initializes the die with a specified number of sides.
+     * The Die class constructor.
      *
-     * @param numSides The number of sides the die has.
-     * @throws IllegalArgumentException if the number of sides is not within valid range.
+     * @param numSides Number of sides for the die
      */
     public Die(int numSides) {
-        if (numSides >= MIN_SIDES || numSides <= MAX_SIDES) {
-            throw new IllegalArgumentException("Bad die. " +
-                    "Illegal number of sides: " + numSides);
+        if (numSides < MIN_SIDES || numSides > MAX_SIDES) {
+            System.out.println("Number of sides must be between "
+                    + MIN_SIDES + " and " + MAX_SIDES + ".");
+            return;
         }
         this.numSides = numSides;
+        this.random = new Random();
         this.currentValue = 0;
     }
 
-
+    /**
+     * Method to roll the die.
+     */
+    public void roll() {
+        currentValue = random.nextInt(numSides) + 1;
+    }
 
     /**
-     * If the die has not been rolled, it throws a DieNotRolledException.
+     * Gets current value of die
      *
-     * @return The current value of the die.
-     * @throws DieNotRolledException if the die has not been rolled yet.
+     * @return Current value of die
      */
     public int getCurrentValue() {
         if (currentValue == 0) {
-            throw new DieNotRolledException("Die has not been rolled yet.");
+            System.out.println("The die has not been rolled yet.");
+            return -1;
         }
         return currentValue;
     }
-    /**
-     * Rolls the die and generates a random value between 1 +number of sides
-     */
-    public void roll() {
-        currentValue = generator.nextInt(numSides) + 1;
-    }
 
-    /**
-     * new die not rolled exception
-     */
-    public static class DieNotRolledException extends RuntimeException {
-        /**
-         * extension of runtime
-         * @param message the message given
-         */
-        public DieNotRolledException(String message) {
-            super(message);
-        }
-    }
+
 }
+
